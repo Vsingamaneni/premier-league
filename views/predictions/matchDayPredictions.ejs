@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title><%= title %></title>
+    <link rel="stylesheet" href="/css/dashboard.css">
+    <link rel="stylesheet" href="/css/schedule.css">
+    <%- include('../header.ejs') %>
+    <style>
+         input[type=submit] {
+            background-color: #343a40;
+            border: none;
+            color: #19B3D3;
+            padding: 16px 32px;
+            text-decoration: none;
+            margin: 4px 2px;
+            cursor: pointer;
+            border-radius: 12px;
+            font-size: 15px;
+            font-weight: 900;
+            font-family: "Roboto", sans-serif;
+        }
+    </style>
+</head>
+<body>
+
+<div>
+    <%- include('../body.ejs') %>
+    <div class="content" style="background-color:#f6f7fa">
+        <br><br><br><br>
+        <br><br><br><br>
+<!--        <div style="width: 100px; margin-left: auto; margin-right: auto;">
+            <input type="submit" value="Deadline : Dec 15, 2020 18:00:00 ">
+        </div>-->
+        <h1 style="text-align: center; color: #19B3D3;">Deadline : Dec 15, 2020 18:00:00</h1>
+        <div class="container">
+
+            <form autocomplete="off" action="/savePredictions/<%= matchDay %>" method="POST">
+
+            <table class="table table-dark table-striped">
+                <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Game</th>
+                    <th>Select</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr style="height: 10px;"></tr>
+                <% schedule.forEach(function(match){ %>
+                    <tr>
+                        <td><%= match.matchNumber %></td>
+                        <td><%= match.homeTeam %> vs <%= match.awayTeam %></td>
+                        <td> <select name="selected<%= match.matchNumber %>" style="width: 50%; background-color: #798284; color:white; padding: 6px 10px;margin: 8px 0; display: inline-block;border: 1px solid #ccc;border-radius: 4px; box-sizing: border-box;" required>
+                                <option>--- Select Result ---</option>
+                                <option><%= match.homeTeam %></option>
+                                <option><%= match.awayTeam %></option>
+                                <option>DRAW</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr style="height: 20px;"></tr>
+                <% }); %>
+                </tbody>
+            </table>
+                <div style="width: 100px; margin-left: auto; margin-right: auto;">
+                    <input type="submit" value="SUBMIT">
+                </div>
+            </form>
+        </div>
+
+    </div>
+</div>
+
+</body>
+</html>

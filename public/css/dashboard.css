@@ -1,0 +1,60 @@
+.shadowbox {
+    width: 60%;
+    border: 1px solid #333;
+    box-shadow: 8px 8px 5px #444;
+    padding: 8px 12px;
+    background-image: linear-gradient(180deg, #fff, #ddd 40%, #ccc);
+}
+
+.left {
+    position: absolute;
+    width: 50%;
+    padding: 10px;
+    border: 1px solid #333;
+    box-shadow: 8px 8px 5px #444;
+    background-image: linear-gradient(180deg, #fff, #ddd 40%, #ccc);
+}
+
+.right {
+    position: absolute;
+    right: 0px;
+    width: 50%;
+    border: 3px solid #73AD21;
+    padding: 10px;
+    border: 1px solid #333;
+    box-shadow: 8px 8px 5px #444;
+    padding: 8px 12px;
+    background-image: linear-gradient(180deg, #fff, #ddd 40%, #ccc);
+}
+
+.selection form {
+    text-align: center;
+    margin:5% 0%;
+    position:relative;
+
+}
+
+
+.selection form select {
+    font-size: 15px;
+    outline: none;
+    font-weight: 600;
+    color: rgb(169, 170, 172);
+    padding: 12px 12px;
+    width: 76%;
+    border-top: 1px solid #090B0D;
+    border-right: 2px solid #424549;
+    border-bottom: 2px solid #424549;
+    border-left: 1px solid #090B0D;
+    margin: 10px 1em;
+    border-radius: 7px;
+    -webkit-border-radius: 7px;
+    -moz-border-radius: 7px;
+    -o-border-radius: 7px;
+    background: #13161B;
+    box-shadow: inset 0px 3px 0px 0px rgba(5, 5, 5, 0.15);
+    -webkit-box-shadow: inset 0px 3px 0px 0px rgba(5, 5, 5, 0.15);
+    -o-box-shadow: inset 0px 3px 0px 0px rgba(5, 5, 5, 0.15);
+    -moz-box-shadow: inset 0px 3px 0px 0px rgba(5, 5, 5, 0.15);
+    font-family: 'Raleway', sans-serif;
+}

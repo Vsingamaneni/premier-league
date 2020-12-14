@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title><%= title %></title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!--===============================================================================================-->
+    <link rel="icon" type="image/png" href="images/soccer.ico"/>
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="/css/login/fonts/iconic/css/material-design-iconic-font.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="/css/login/css/util.css">
+    <link rel="stylesheet" type="text/css" href="/css/login/css/main.css">
+    <!--===============================================================================================-->
+</head>
+<body>
+
+<div class="limiter">
+    <div class="container-login100" style="background-image: url('/images/rooney.jpg');">
+        <div class="wrap-login100">
+            <form autocomplete="off" class="login100-form validate-form" action="/userLogin" method="post">
+					<span class="login100-form-logo">
+                        <img src="/images/teams/league.png" style="width: 110px;  height: 110px; border-radius: 110px; margin-bottom: 10px;" alt="">
+					</span>
+
+                <span class="login100-form-title p-b-34 p-t-27">
+						Log in
+					</span>
+
+                <span style ="text-align: center">
+                    <% if(typeof alert != 'undefined') { %>
+                        <% alert.forEach(function(error) { %>
+                            <div style="color:#f52121;" role="alert">
+                                <%= error.msg %>
+                                <br />
+                              </div>
+                        <% }) %>
+                        <br />
+                    <% } %>
+                </span>
+
+                <span style ="text-align: center">
+                    <% if(typeof success != 'undefined') { %>
+                            <div style="color:#86d230;" role="alert">
+                                <%= success %>
+                                <br />
+                              </div>
+                        <br />
+                    <% } %>
+                </span>
+
+                <input autocomplete="false" name="hidden" type="text" style="display:none;">
+
+                <div class="wrap-input100 validate-input" data-validate = "Enter username">
+                    <input id="email" class="input100" type="text" name="email" placeholder="Email" required>
+                    <span class="focus-input100" data-placeholder="&#xf207;"></span>
+                </div>
+
+                <div class="wrap-input100 validate-input" data-validate="Enter password">
+                    <input id="password" class="input100" type="password"  placeholder="Password" name="password" required>
+                    <span class="focus-input100" data-placeholder="&#xf191;"></span>
+                </div>
+
+                <div class="contact100-form-checkbox">
+                    <input class="input-checkbox100" id="ckb1" type="checkbox" name="remember-me">
+                    <label class="label-checkbox100" for="ckb1">
+                        Remember me
+                    </label>
+                </div>
+
+                <div class="container-login100-form-btn">
+                    <button class="login100-form-btn"  formaction="/userLogin">Login</button>
+                </div>
+
+                <div class="text-center p-t-90">
+                    <a class="txt1" formmethod="get" href="/forget" style=" text-decoration: none;">
+                        Forgot Password?
+                    </a> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <a class="txt1" formmethod="get" href="/register" style=" text-decoration: none;">
+                        Register?
+                    </a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Register</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+
+</head>
+
+<body style="background-image: url('../images/rooney.jpg');">
+
+
+<div class="main">
+    <div class="login-head">
+
+        <br/>
+    </div>
+    <div class="wrap">
+        <div class="Regisration">
+            <div class="Regisration-head">
+                <h2><span></span>Register</h2>
+            </div>
+
+            <% if(typeof alert != 'undefined') { %>
+                <br/>
+                <% alert.forEach(function(error) { %>
+                    <div style="color:red;" role="alert">
+                        <%= error.msg %>
+                    </div>
+                <% }) %>
+            <% } %>
+
+            <form autocomplete="off" action="/registerSave" method="POST">
+                <input type="text" name="fname" placeholder="First Name" pattern=".{3,}"  required title="Dude, 3 characters is minimum" onkeypress="return event.charCode != 32" required>
+                <input type="text" name="lname" placeholder="Last Name" pattern=".{3,}"   required title="Dude, 3 characters is minimum" onkeypress="return event.charCode != 32" required>
+                <input type="email" name="email" placeholder="Email Address" onkeypress="return event.charCode != 32" required>
+                <input type="email" name="cemail" placeholder="Confirm Email Address" onkeypress="return event.charCode != 32" required>
+                <input type="password" name="password" placeholder="Password" pattern=".{3,}"  onkeypress="return event.charCode != 32" required title="uh uh!! Password is less than 3 chars? Come on" required>
+                <input type="password" name="cpassword" placeholder="Confirm Password" onkeypress="return event.charCode != 32" required>
+
+                <select name="country" type="text" style="width: 80%;" required>
+                    <option>--- Select Country ---</option>
+                    <option>India</option>
+                    <option>United States</option>
+                    <option>England</option>
+                    <option>UAE</option>
+                    <option>Other</option>
+                </select>
+
+                <select name="favTeam" type="text" style="width: 80%;" required>
+                    <option>--- Select Favourite Team ---</option>
+                    <option value="ARS">Arsenal</option>
+                    <option value="AV">Aston Villa</option>
+                    <option value="BHA">Brighton Hove Albion</option>
+                    <option value="BUR">Burnley</option>
+                    <option value="CHE">Chelsea</option>
+                    <option value="CP">Crystal Palace</option>
+                    <option value="EVE">Everton</option>
+                    <option value="FUL">Fulham</option>
+                    <option value="LEEDS">Leeds United</option>
+                    <option value="LEC">Leicester City</option>
+                    <option value="LIV">Liverpool</option>
+                    <option value="MC">Manchester City</option>
+                    <option value="MU">Manchester United</option>
+                    <option value="NEW">Newcastle United</option>
+                    <option value="SOU">Southampton</option>
+                    <option value="SU">Sheffield United</option>
+                    <option value="SPURS">Tottenham Hostspurs</option>
+                    <option value="WBA">West Brom</option>
+                    <option value="WHU">West Ham</option>
+                    <option value="WOV">Wolves</option>
+                </select>
+
+                <select name="question" style="width: 80%;" required>
+                    <option>--- Select Security Question ---</option>
+                    <option>What is your best friend name?</option>
+                    <option>Who is your favourite Soccer player?</option>
+                    <option>What is the name of your first pet?</option>
+                </select>
+
+                <input type="password" name="securityAnswer" placeholder="Security Answer" pattern=".{3,}"  title="Dude, 3 characters is minimum" required>
+
+                <input autocomplete="off" type="text" name="phoneNumber" placeholder="Mobile Number" pattern=".{10,}"  onkeypress="return event.charCode != 32" required title="where are the 10 digits?" required>
+                <input type="text" name="role" value="member" hidden="true">
+
+                <input type="password" name="secretKey" placeholder="Secret Key" onkeypress="return event.charCode != 32" required>
+
+                <select name="preference" style="width: 80%;" required>
+                    <option>--- Select Payment Preference ---</option>
+                    <option>GPAY</option>
+                    <option>Phone Pay</option>
+                    <option>Account Transfer</option>
+                    <option>CASH APP - US</option>
+                    <option>ZELLE - US</option>
+                </select>
+                <div class="Remember-me">
+                    <div class="p-container">
+
+                        <div class="clear"></div>
+                    </div>
+
+                    <div class="submit">
+                        <input type="submit" value="Sign Me Up">
+                    </div>
+
+            </form>
+        </div>
+
+    </div>
+
+    <div class="copy-right">
+        <br/><br/><br/>
+        <p style="color:white;"> &copy; 2021 All rights reserved @ Vamsi Singamaneni</p>
+    </div>
+</div>
+</div>
+</body>
+</html>
+
+
+
+

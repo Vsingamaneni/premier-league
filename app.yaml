@@ -1,0 +1,14 @@
+runtime: nodejs
+env: flex
+manual_scaling:
+    instances: 1
+# automatic_scaling:
+#   min_num_instances: 1
+#   max_num_instances: 2
+env_variables:
+  SQL_USER: root
+  SQL_PASSWORD: 
+  SQL_DATABASE: EmployeeDB
+  INSTANCE_CONNECTION_NAME: myreact-295818:us-central1:react-app
+beta_settings:
+  cloud_sql_instances: myreact-295818:us-central1:react-app

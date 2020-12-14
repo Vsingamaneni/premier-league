@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title><%= title %></title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <link rel="icon" type="image/png" href="../images/soccer.ico"/>
+    
+    <link rel="stylesheet" type="text/css" href="css/style.css">	
+	
+	</head>
+
+<body style="background-image: url('../images/rooney.jpg');">
+	
+		
+				<div class="main">
+			    	<div class="login-head">				
+
+					   <br />
+					</div>
+					<div  class="wrap">
+						  <div class="Regisration">
+						  	<div class="Regisration-head">
+						    	<h2><span></span>Security Question</h2>
+                              </div>
+                              
+                              <% if(typeof alert != 'undefined') { %>
+                                <br />
+                                <% alert.forEach(function(error) { %>
+                                    <div style="color:red;" role="alert">
+                                        <%= error.msg %>
+                                      </div>
+                                <% }) %>
+                            <% } %>
+
+                            
+						  	<form action="/validateSecurity" method="POST">
+								<input type="text" name="question" placeholder="Security Answer" value = "<%= loginDetails %>" >
+
+								<input type="password" name="securityAnswer" placeholder="Security Answer" required >
+                                <input type="hidden" name="email" value= "<%= email %>" >
+								 <div class="Remember-me">
+								<div class="p-container">
+								
+								<div class ="clear"></div>
+							</div>
+												 
+								<div class="submit">
+									<input type="submit" value="Reset">
+								</div>
+											
+						  </form>
+					</div>
+				
+			</div>
+			
+								<div class ="copy-right">
+										<br /><br /><br />
+										<p style="color:#A9AAAC;"> &copy; 2021 All rights reserved @ Vamsi Singamaneni</p>
+									</div>
+						</div>
+			  </div>
+	</body>
+</html>
+
+
+
+

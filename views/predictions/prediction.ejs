@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title><%= title %></title>
+    <link rel="stylesheet" href="/css/dashboard.css">
+    <link rel="stylesheet" href="/css/schedule.css">
+    <%- include('../header.ejs') %>
+</head>
+<body>
+
+<div>
+    <%- include('../body.ejs') %>
+    <div class="content" style="background-color:#f6f7fa">
+        <br><br><br><br>
+        <br><br><br><br>
+
+        <div class="container">
+            <% if(typeof alert != 'undefined') { %>
+                <br/>
+                <% alert.forEach(function(error) { %>
+                    <div style="color:red;text-align: center;font-size: 15px; font-weight: 900; font-family: Roboto, sans-serif;" role="alert">
+                        <%= error.msg %>
+                    </div>
+                <br><br><br>
+                <% }) %>
+            <% } %>
+            <table class="table table-dark table-striped">
+                <thead>
+                <tr>
+                    <th>Game Week</th>
+                    <th>Deadline</th>
+                    <th># of Games</th>
+                    <th>Action</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr style="height: 10px;"></tr>
+                <% schedule.forEach(function(match){ %>
+                    <tr>
+                        <td><%= match.matchDay %></td>
+                        <td><%= match.deadline %></td>
+                        <td><%= match.games %></td>
+                        <td> <% if (match.allow !== undefined && match.allow) { %>
+                                <a href="predict/<%= match.matchDay %>/<%= memberId %>" class="predict_btn">Predict</a>
+                            <% } %>
+                        </td>
+                    </tr>
+                    <tr style="height: 20px;"></tr>
+                <% }); %>
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+</div>
+
+</body>
+</html>

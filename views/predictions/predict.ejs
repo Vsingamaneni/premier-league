@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title><%= title %></title>
+    <link rel="stylesheet" href="/css/dashboard.css">
+    <link rel="stylesheet" href="/css/schedule.css">
+    <%- include('../header.ejs') %>
+</head>
+<body>
+
+<div>
+    <%- include('../body.ejs') %>
+    <div class="content" style="background-color:#f6f7fa">
+        <br><br><br><br>
+        <br><br><br><br>
+
+        <div class="container">
+            <table class="table table-dark table-striped">
+                <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Fixture</th>
+                    <th>Deadline</th>
+                    <th>Venue</th>
+                    <th>Action</th>
+                </tr>
+                </thead>
+                <tbody>
+                <% schedule.forEach(function(match){ %>
+                    <tr>
+                        <td><%= match.matchNumber %></td>
+                        <td><%= match.homeTeam %> vs <%= match.awayTeam %></td>
+                        <td><%= match.localTime %></td>
+                        <td><%= match.venue %></td>
+                        <td> <% if (match.allow !== undefined && match.allow) { %>
+                                <a href="/predict/<%= match.matchNumber %>/<%= memberId %>" class="predict_btn">Predict</a>
+                            <% } %>
+                            <% if (match.winner !== undefined && !match.allow) { %>
+                                <a href="#" class="missed_btn">Time Up</a>
+                            <% } %>
+                        </td>
+                    </tr>
+                <% }); %>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

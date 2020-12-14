@@ -1,0 +1,35 @@
+<input type="checkbox" id="check">
+<!--header area start-->
+<header>
+    <label for="check">
+        <i class="fas fa-bars" id="sidebar_btn"></i>
+    </label>
+    <div class="left_area">
+        <h3><i>Premier<span> League</span></i></h3>
+    </div>
+    <div class="right_area">
+        <a href="/logout" class="logout_btn"><i class="fas fa-sign-out-alt"></i><span>  Logout</span></a>
+    </div>
+</header>
+<!--header area end-->
+<!--sidebar start-->
+<div class="sidebar">
+    <center>
+        <img src="/images/teams/<%= team %>.png" class="profile_image" alt="">
+        <h4>Welcome, <%= fname %></h4>
+    </center>
+    <a href="/dashboard"><i class="fas fa-home"></i><span>Home</span></a>
+    <a href="/schedule"><i class="far fa-calendar-alt"></i><span>Schedule</span></a>
+    <a href="/predictions"><i class="fas fa-table"></i><span>Predictions</span></a>
+    <a href="#"><i class="fas fa-th"></i><span>Match Day</span></a>
+    <a href="#"><i class="fas fa-info-circle"></i><span>History</span></a>
+    <a href="#"><i class="fas fa-sliders-h"></i><span>Standings</span></a>
+    <a href="#"><i class="fas fa-poll"></i><span>Stats</span></a>
+    <a href="#"><i class="fas fa-pencil-ruler"></i><span>Rules</span></a>
+    <a href="#"><i class="fas fa-user-friends"></i><span>Users</span></a>
+    <!--<a href="#"><i class="fas fa-th"></i><span>Match Day</span></a>
+    <a href="#"><i class="fas fa-info-circle"></i><span>History</span></a>
+    <a href="#"><i class="fas fa-sliders-h"></i><span>Standings</span></a>
+    <a href="#"><i class="fas fa-poll"></i><span>Results</span></a>-->
+</div>
+<!--sidebar end-->

@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title><%= title %></title>
+    <link rel="stylesheet" href="css/dashboard.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <%- include('../header.ejs') %>
+</head>
+<body>
+
+<div>
+    <%- include('../body.ejs') %>
+    <div class="content" style="background-color:#f6f7fa">
+        <br><br><br><br>
+        <br><br><br><br>
+        <% if (dashboard !== undefined) { %>
+        <p style="margin:0 auto; text-align: center; font-size: 60px; margin-top: 0px; width: 1000px; border: 3px solid #315f00;color: #84e5d8; text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;" id="demo"></p>
+        <script>
+                // Set the date we're counting down to
+               // var countDownDate = new Date("Dec 3, 2020 15:37:25").getTime();
+                var countDownDate = new Date("<%= dashboard.timer %>").getTime();
+
+                // Update the count down every 1 second
+                var x = setInterval(function () {
+
+                    // Get today's date and time
+                    var now = new Date().getTime();
+
+                    // Find the distance between now and the count down date
+                    var distance = countDownDate - now;
+
+                    // Time calculations for days, hours, minutes and seconds
+                    var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+                    var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                    var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                    var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+                    // Output the result in an element with id="demo"
+                    document.getElementById("demo").innerHTML = "Game Week # <%= dashboard.matchDay %> : " + days + "d " + hours + "h "
+                        + minutes + "m " + seconds + "s ";
+
+                    // If the count down is over, write some text
+                    if (distance < 0) {
+                        clearInterval(x);
+                        document.getElementById("demo").innerHTML = "Game Week # <%= dashboard.matchDay %> : " + "Time Up";
+                    }
+                }, 1000);
+        </script>
+        <br>
+        <% } %>
+        <br><br>
+
+        <div class="left" width="60%" style="margin: 0 auto;">
+            <details>
+                <summary>Match Day Details</summary>
+                <p>Here's a very interesting note displayed in a
+                    lovely shadowed box adasd asdasda asdadas asdadas asdadas asdada.</p>
+            </details>
+        </div>
+        <br><br><br>
+        <br><br><br>
+        <br><br><br>
+
+        <div class="shadowbox" width="60%" style="margin: 0 auto;">
+            <details>
+                <summary>Your Form</summary>
+                <p>Here's a very interesting note displayed in a
+                    lovely shadowed box adasd asdasda asdadas asdadas asdadas asdada.</p>
+            </details>
+        </div>
+        <br><br><br>
+        <br><br><br>
+
+        <div class="right" width="60%" style="margin: 0 auto;">
+            <details>
+                <summary>DC Form</summary>
+                <p>Here's a very interesting note displayed in a
+                    lovely shadowed box adasd asdasda asdadas asdadas asdadas asdada.</p>
+            </details>
+        </div>
+        <div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
