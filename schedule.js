@@ -21,11 +21,18 @@ app.use(bodyParser.urlencoded({extended: false}));
 app.use(express.static(__dirname + '/public'));
 app.use('/public', express.static('public'));
 
-const connection = mysql.createConnection({
+/*const connection = mysql.createConnection({
     host: 'localhost',
     user: 'root',
     password: '',
     database: 'premier_league'
+});*/
+
+const connection=mysql.createConnection({
+    host:'premierleague.cxn0nyuxcvwi.us-east-2.rds.amazonaws.com',
+    user:'root',
+    password:'premier_league',
+    database:'premier_league'
 });
 
 exports.dashboard = app.get('/dashboard', async (req, res) => {
