@@ -1,8 +1,8 @@
 const path = require('path');
 const express = require('express');
-const mysql = require('mysql');
 var cryptPass = require('./password');
 const bodyParser = require('body-parser');
+var db = require('./db');
 
 const urlencodedParser = bodyParser.urlencoded({extended: false})
 const {check, validationResult} = require('express-validator')
@@ -20,29 +20,7 @@ app.use(bodyParser.urlencoded({extended: false}));
 app.use(express.static(__dirname + '/public'));
 app.use('/public', express.static('public'));
 
-/*const connection = mysql.createConnection({
-    host: 'localhost',
-    user: 'root',
-    password: '',
-    database: 'premier_league'
-});*/
-
-const connection=mysql.createConnection({
-    host:'premierleague.cxn0nyuxcvwi.us-east-2.rds.amazonaws.com',
-    user:'root',
-    password:'premier_league',
-    database:'premier_league'
-});
-
-/*exports.login = app.get('/login', function(req, res){
-    if (req.cookies.loginDetails) {
-        res.redirect('/dashboard');
-    }
-
-    res.render('login/login', {
-        title : 'Scoreboard'
-    });
-  });*/
+const connection = db.dbConnection();
 
 exports.login = app.get('/login', function (req, res) {
     if (req.cookies.loginDetails) {

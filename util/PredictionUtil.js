@@ -87,23 +87,20 @@ exports.getMatchdaySchedule = async function getMatchdaySchedule(connection, mat
 }
 
 // returns the entire predictions for the given matchDay and memberId.
-exports.getMatchdayPredictions = async function getMatchdayPredictions(connection, matchDay, memberId) {
-    let sql = `Select * from PREDICTIONS where matchDay =${matchDay} and memberId = ${memberId}`;
+exports.getMatchdayPredictions = async function getMatchdayPredictions(connection, memberId) {
+    let sql = `Select * from PREDICTIONS where memberId = ${memberId}`;
     let matches = [];
 
     await new Promise((resolve, reject) => {
-        let result = connection.query(sql, function (err, results) {
+        connection.query(sql, function (err, results) {
             if (err) {
                 reject(err);
             } else {
-
                 if (results.length > 0) {
                     results.forEach(function (item) {
-                        if (!item.done) {
-                            matches.push(item);
-                        }
+                        matches.push(item);
+                        resolve(matches);
                     });
-                    resolve(matches);
                 } else {
                     resolve(matches);
                 }
@@ -111,7 +108,66 @@ exports.getMatchdayPredictions = async function getMatchdayPredictions(connectio
         });
     });
 
-    return matches;
+    let userPredictions = new Map();
+
+    if (matches.length > 0) {
+        matches.forEach(function (match) {
+            if (undefined != userPredictions.get(match.matchDay)) {
+                let gameWeek = userPredictions.get(match.matchDay);
+                gameWeek.push(match);
+            } else {
+                let weeksSchedule = [];
+                weeksSchedule.push(match);
+                userPredictions.set(match.matchDay, weeksSchedule);
+            }
+        });
+    }
+    return userPredictions;
+
+}
+
+exports.mapPredictionsToSchedule = function mapPredictionsToSchedule(predictions, schedule) {
+    // schedule is a list
+    if (schedule.length > 0) {
+        schedule.forEach(function (match) {
+            let allowPrediction = true;
+            if (predictions.size > 0) {
+                for (const [key, value] of predictions.entries()) {
+                    if (match.matchDay == key && match.games == value.length){
+                        allowPrediction = false;
+                    }
+                }
+            }
+            match.allow = allowPrediction;
+        })
+    }
+
+    // predictions is a map
+
+}
+
+// Returns the current active matchDay
+exports.getActiveMatchDay = async function getActiveMatchDay(connection) {
+    let sql = `Select * from SCHEDULE where isActive = true LIMIT 1`;
+    let matchDay;
+
+    await new Promise((resolve, reject) => {
+        connection.query(sql, function (err, results) {
+            if (err) {
+                reject(err);
+            } else {
+                if (results.length > 0) {
+                    results.forEach(function (item) {
+                        matchDay = item.matchDay;
+                    });
+                } else {
+                    matchDay = 0;
+                }
+            }
+        });
+    });
+
+    return matchDay;
 }
 
 exports.mapSchedule = function mapSchedule(schedule, includeFinishedGames) {
@@ -179,49 +235,56 @@ exports.validateMemberPredictions = function validateMemberPredictions(req) {
 }
 
 // Saves user predictions for the match day.
-exports.saveMemberPredictions = async function saveMemberPredictions(connection, req) {
-
+exports.saveMemberPredictions = async function saveMemberPredictions(connection, req, matchDay, res) {
+    let isPredictionSaveSuccess = false;
     let loginDetails = JSON.parse(req.cookies.loginDetails);
     let schedule = req.cookies.schedule;
-    if (undefined == schedule){
-        return ;
+    if (undefined == schedule) {
+        return;
     }
 
+    const memberId = loginDetails.memberId;
+    var matchNumber;
+    var homeTeam;
+    var awayTeam;
+    var firstName;
+    var selected;
+    var predictedTime = new Date();
 
-    let data = {
-        fname: req.body.fname,
-        lname: req.body.lname,
-        email: req.body.email,
-        phoneNumber: req.body.phoneNumber,
-        country: req.body.country,
-        securityQuestion: req.body.question,
-        securityAnswer: req.body.securityAnswer,
-        role: req.body.role,
-        encryptedPass: jsonObj.passCrypto,
-        salt: jsonObj.saltKey,
-        isActive: 'N',
-        isAdminActivated: 'N',
-        paymentPref: req.body.preference,
-        selectedTeam: req.body.favTeam
-    };
+    schedule.forEach(function (match) {
+        matchNumber = match.matchNumber;
+        homeTeam = match.homeTeam;
+        awayTeam = match.awayTeam;
+        firstName = loginDetails.fName + ' ' + loginDetails.lName;
+        selected = returnSelectedValue(req, matchNumber);
 
-    let sql = "INSERT INTO PREDICTIONS SET ?";
+        let data = {
+            memberId: memberId,
+            matchNumber: matchNumber,
+            homeTeam: homeTeam,
+            awayTeam: awayTeam,
+            firstName: firstName,
+            selected: selected,
+            predictedTime: predictedTime,
+            matchDay: matchDay
+        };
 
-    let query = connection.query(sql, data, (err, results) => {
-        if (err) throw err;
-        // res.redirect('/login');
-        const success = 'Registration Successful';
-        res.render('login/login', {
-            success: success,
-            title: 'Scoreboard'
-        })
+        let sql = "INSERT INTO PREDICTIONS SET ?";
 
-    });
+        connection.query(sql, data, (err, results) => {
+            if (err) {
+                const alert = 'Unable to save predictions';
+                res.cookie('alert', alert, {expires: new Date(Date.now() + 60 * 60000), httpOnly: true});
+                return res.redirect('/predictions');
+            }
+            isPredictionSaveSuccess = true;
+        });
 
-    return matches;
+    })
+    return isPredictionSaveSuccess;
 }
 
-function returnSelectedValue(req, matchId){
+function returnSelectedValue(req, matchId) {
     let selectedvalue;
     if (undefined != matchId) {
         if (matchId == 1) {
@@ -244,13 +307,13 @@ function returnSelectedValue(req, matchId){
             selectedvalue = req.body.selected9;
         } else if (matchId == 10) {
             selectedvalue = req.body.selected10;
-        }else if (matchId == 11) {
+        } else if (matchId == 11) {
             selectedvalue = req.body.selected11;
-        }else if (matchId == 12) {
+        } else if (matchId == 12) {
             selectedvalue = req.body.selected12;
-        }else if (matchId == 13) {
+        } else if (matchId == 13) {
             selectedvalue = req.body.selected13;
-        }else if (matchId == 14) {
+        } else if (matchId == 14) {
             selectedvalue = req.body.selected14;
         }
     }

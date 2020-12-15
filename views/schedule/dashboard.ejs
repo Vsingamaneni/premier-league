@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <%- include('../header.ejs') %>
 </head>
-<body>
+<body style="background-color: #f6f7fa;" >
 
 <div>
     <%- include('../body.ejs') %>
@@ -18,7 +18,7 @@
         <script>
                 // Set the date we're counting down to
                // var countDownDate = new Date("Dec 3, 2020 15:37:25").getTime();
-                var countDownDate = new Date("<%= dashboard.timer %>").getTime();
+                var countDownDate = new Date("<%= dashboard.formatTimer %>").getTime();
 
                 // Update the count down every 1 second
                 var x = setInterval(function () {
@@ -50,7 +50,7 @@
         <% } %>
         <br><br>
 
-        <div class="left" width="60%" style="margin: 0 auto;">
+        <!--<div class="left" width="60%" style="margin: 0 auto;">
             <details>
                 <summary>Match Day Details</summary>
                 <p>Here's a very interesting note displayed in a
@@ -77,7 +77,7 @@
                 <p>Here's a very interesting note displayed in a
                     lovely shadowed box adasd asdasda asdadas asdadas asdadas asdada.</p>
             </details>
-        </div>
+        </div>-->
         <div>
         </div>
     </div>

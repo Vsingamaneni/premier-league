@@ -1,7 +1,6 @@
 const path = require('path');
 const express = require('express');
 const bodyParser = require('body-parser');
-const mysql = require('mysql');
 var cookieParser = require('cookie-parser');
 var session = require("express-session");
 
@@ -9,6 +8,7 @@ var session = require("express-session");
 var userSession = require('./user');
 var schedule = require('./schedule');
 var predictions = require('./predictions');
+var db = require('./db');
 
 const app = express();
 
@@ -20,35 +20,9 @@ app.use(session({
   cookie: { secure: true }
 }));
 
-// // dev config
-// const connection=mysql.createConnection({
-//     host:'localhost',
-//     user:'root',
-//     password:'',
-//     database:'premier_league'
-// });
-
-const connection=mysql.createConnection({
-    host:'premierleague.cxn0nyuxcvwi.us-east-2.rds.amazonaws.com',
-    user:'root',
-    password:'premier_league',
-    database:'premier_league'
-});
-
-
-
-// MySQL GOOGLE CLOUD  config
-// const connection=mysql.createConnection({
-//     host:'34.71.143.66',
-//     user:'root',
-//     password:'',
-//     port:3306,
-//     socketPath:'/cloudsql/myreact-295818:us-central1:react-app',
-//     database:'EmployeeDB'
-// });
-
-
 module.exports = app;
+
+var connection = db.dbConnection();
 
 connection.connect(function(error){
     if(!!error) console.log(error);

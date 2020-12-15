@@ -21,7 +21,7 @@
         }
     </style>
 </head>
-<body>
+<body style="background-color: #f6f7fa;">
 
 <div>
     <%- include('../body.ejs') %>
@@ -50,8 +50,8 @@
                     <tr>
                         <td><%= match.matchNumber %></td>
                         <td><%= match.homeTeam %> vs <%= match.awayTeam %></td>
-                        <td> <select name="selected<%= match.matchNumber %>" style="width: 50%; background-color: #798284; color:white; padding: 6px 10px;margin: 8px 0; display: inline-block;border: 1px solid #ccc;border-radius: 4px; box-sizing: border-box;" required>
-                                <option>--- Select Result ---</option>
+                        <td> <select name="selected<%= match.matchNumber %>" style="width: 50%; background-color: #4f9bad; color:white; padding: 6px 10px;margin: 8px 0; display: inline-block;border: 1px solid #ccc;border-radius: 4px; box-sizing: border-box; font-size: 15px; font-weight: 900;" required>
+                                <option style="background-color: blue">--- Select Result ---</option>
                                 <option><%= match.homeTeam %></option>
                                 <option><%= match.awayTeam %></option>
                                 <option>DRAW</option>

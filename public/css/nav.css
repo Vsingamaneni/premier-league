@@ -58,6 +58,18 @@ header{
   transition-property: background;
 }
 
+.predicted_btn{
+  padding: 2px;
+  background: #9bf802;
+  text-decoration: none;
+  border-radius: 2px;
+  font-size: 15px;
+  font-weight: 600;
+  color: #494848;
+  transition: 0.5s;
+  transition-property: background;
+}
+
 .missed_btn{
   padding: 2px;
   background: #d32819;

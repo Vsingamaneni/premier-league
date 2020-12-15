@@ -4,6 +4,8 @@ const mysql = require('mysql');
 const bodyParser = require('body-parser');
 let utils = require('./util/ScheduleUtil');
 var predictionUtils = require('./util/PredictionUtil');
+var db = require('./db');
+
 
 const urlencodedParser = bodyParser.urlencoded({extended: false})
 const {check, validationResult} = require('express-validator')
@@ -21,19 +23,7 @@ app.use(bodyParser.urlencoded({extended: false}));
 app.use(express.static(__dirname + '/public'));
 app.use('/public', express.static('public'));
 
-/*const connection = mysql.createConnection({
-    host: 'localhost',
-    user: 'root',
-    password: '',
-    database: 'premier_league'
-});*/
-
-const connection=mysql.createConnection({
-    host:'premierleague.cxn0nyuxcvwi.us-east-2.rds.amazonaws.com',
-    user:'root',
-    password:'premier_league',
-    database:'premier_league'
-});
+const connection = db.dbConnection();
 
 exports.dashboard = app.get('/dashboard', async (req, res) => {
     try {
