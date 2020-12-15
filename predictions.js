@@ -100,7 +100,7 @@ exports.predict = app.get('/predict/:matchDay/:memberId', async (req, res) => {
     });
 });
 
-// Update the predictions
+// Save the predictions
 exports.savePredictions = app.post('/savePredictions/:matchDay', urlencodedParser, [
     check('selected1', 'Select All games')
         /*.custom((value, {req}) => value != '--- Select Result ---')*/
@@ -141,7 +141,7 @@ exports.savePredictions = app.post('/savePredictions/:matchDay', urlencodedParse
 });
 
 
-// TODO
+// Get the user predictions to update
 exports.savePredictions = app.get('updatePredictions/:matchDay/:memberId', async (req, res) => {
     if (req.cookies.loginDetails) {
         let loginDetails = JSON.parse(req.cookies.loginDetails);

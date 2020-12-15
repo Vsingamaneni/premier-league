@@ -5,6 +5,7 @@ const bodyParser = require('body-parser');
 let utils = require('./util/ScheduleUtil');
 var predictionUtils = require('./util/PredictionUtil');
 var db = require('./db');
+var moment = require('moment');
 
 
 const urlencodedParser = bodyParser.urlencoded({extended: false})
@@ -32,11 +33,21 @@ exports.dashboard = app.get('/dashboard', async (req, res) => {
 
             let schedule = await utils.matchDetails(connection);
 
+            // var x = new Date();
+            // var offset= -x.getTimezoneOffset();
+            // console.log((offset>=0?"+":"-")+parseInt(offset/60)+":"+offset%60)
+
+            // console.log(moment().format('Z'));
+            //
+            // var dt = new Date(Date.parse('Dec 15, 2020 17:00:00'+" UTC"));
+            // dt.setMinutes(dt.getMinutes() - dt.getTimezoneOffset());
+            // console.log(dt);
             return res.render('schedule/dashboard', {
                 title: 'Dashboard',
                 team: loginDetails.team,
                 fname: loginDetails.fName,
-                dashboard: schedule[0]
+                dashboard: schedule[0],
+                moment: moment
             });
         } else {
             return res.render('login/login', {

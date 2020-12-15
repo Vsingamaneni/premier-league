@@ -49,7 +49,7 @@ exports.sortSchedule = async function getSchedule(connection) {
             schedule.allow = false;
         }
         var inputInUtc = schedule.timer;
-        var dateInUtc = new Date(Date.parse(inputInUtc));
+        var dateInUtc = new Date(Date.parse(inputInUtc+ " UTC"));
         var dateInLocalTz = convertUtcToLocalTz(dateInUtc);
 
         schedule.localTime = moment(new Date(dateInLocalTz.toISOString()), 'MMMM Do YYYY, h:mm:ss a').format('MMM Do YYYY, h:mm A');

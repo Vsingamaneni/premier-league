@@ -2,18 +2,18 @@ const mysql = require('mysql');
 
 var connection;
 
-/*// Localhost DB config
-module.exports = {
-    dbConnection: function () {
-        connection = mysql.createConnection({
-            host:'localhost',
-            user:'root',
-            password:'',
-            database:'premier_league'
-        });
-        return connection;
-    }
-};*/
+// // Localhost DB config
+// module.exports = {
+//     dbConnection: function () {
+//         connection = mysql.createConnection({
+//             host:'localhost',
+//             user:'root',
+//             password:'',
+//             database:'premier_league'
+//         });
+//         return connection;
+//     }
+// };
 
 
 // AWS DB Config
@@ -25,7 +25,6 @@ module.exports = {
                 password:'premier_league',
                 database:'premier_league'
         });
-        connection.connect();
         return connection;
     }
 };
