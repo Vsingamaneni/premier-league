@@ -35,12 +35,8 @@ exports.matchDetails = async function getMatchDetails(connection){
                         let dateInLocalTz = convertUtcToLocalTz(dateInUtc);
                         item.localTime = moment(new Date(dateInLocalTz.toISOString()), 'MMMM Do YYYY, h:mm:ss a').format('MMM Do YYYY, h:mm A');
 
-                        let timerInputInUtc = item.timer;
-                        let timerDateInUtc = new Date(Date.parse(timerInputInUtc));
-                         let timerDateInLocalTz = convertUtcToLocalTz(timerDateInUtc);
+                        item.formatTimer = item.timer;
 
-                        /*item.formatTimer = moment(new Date(timerDateInLocalTz.toISOString()), 'MMMM Do YYYY, h:mm:ss a').format('lll');*/
-                        item.formatTimer = timerDateInUtc;
                         schedule.push(item);
                     });
                     resolve(schedule);

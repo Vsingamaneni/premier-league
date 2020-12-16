@@ -8,6 +8,12 @@
 </head>
 <body style="background-color: #f6f7fa;">
 
+<%
+    localDateConverted = function(dateString){
+        return new Date(dateString).toLocaleDateString() + " " + new Date(dateString).toLocaleTimeString();
+    }
+%>
+
 <div>
     <%- include('../body.ejs') %>
     <div class="content" style="background-color:#f6f7fa">
@@ -30,7 +36,7 @@
                         <tr>
                             <td><%= game.matchDay %></td>
                             <td><%= game.homeTeam %> vs <%= game.awayTeam %></td>
-                            <td><%= game.localTime %></td>
+                            <td><%= localDateConverted( game.matchTime) %></td>
                             <td><%= game.venue %></td>
                             <td> <% if (game.winner !== undefined) { %>
                                     <%=  game.winner %>

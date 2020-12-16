@@ -83,7 +83,11 @@ exports.predict = app.get('/predict/:matchDay/:memberId', async (req, res) => {
         const matchDay = req.params.matchDay;
         const memberId = req.params.memberId;
         let schedule = await predictionUtils.getMatchdaySchedule(connection, matchDay);
+        let matchDeadline;
 
+        if (schedule.length > 0){
+            matchDeadline = schedule[0].timer;
+        }
         res.cookie('schedule', schedule, {expires: new Date(Date.now() + 100 * 60000), httpOnly: true});
 
         return res.render('predictions/matchDayPredictions', {
@@ -92,7 +96,8 @@ exports.predict = app.get('/predict/:matchDay/:memberId', async (req, res) => {
             fname: loginDetails.fName,
             schedule: schedule,
             memberId: loginDetails.memberId,
-            matchDay: matchDay
+            matchDay: matchDay,
+            matchDeadline: matchDeadline
         });
     }
     return res.render('login/login', {

@@ -23,6 +23,12 @@
 </head>
 <body style="background-color: #f6f7fa;">
 
+<%
+localDateConverted = function(dateString){
+    return new Date(dateString).toLocaleDateString() + " " + new Date(dateString).toLocaleTimeString();
+}
+%>
+
 <div>
     <%- include('../body.ejs') %>
     <div class="content" style="background-color:#f6f7fa">
@@ -31,7 +37,7 @@
 <!--        <div style="width: 100px; margin-left: auto; margin-right: auto;">
             <input type="submit" value="Deadline : Dec 15, 2020 18:00:00 ">
         </div>-->
-        <h1 style="text-align: center; color: #19B3D3;">Deadline : Dec 15, 2020 18:00:00</h1>
+        <h1 style="text-align: center; color: #19B3D3;">Deadline : <%= localDateConverted(matchDeadline)%> </h1>
         <div class="container">
 
             <form autocomplete="off" action="/savePredictions/<%= matchDay %>" method="POST">

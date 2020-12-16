@@ -8,6 +8,12 @@
 </head>
 <body style="background-color: #f6f7fa;">
 
+<%
+localDateConverted = function(dateString){
+    return new Date(dateString).toLocaleDateString() + " " + new Date(dateString).toLocaleTimeString();
+}
+%>
+
 <div>
     <%- include('../body.ejs') %>
     <div class="content" style="background-color:#f6f7fa">
@@ -57,7 +63,7 @@
                 <% schedule.forEach(function(match){ %>
                     <tr>
                         <td><%= match.matchDay %></td>
-                        <td><%= match.deadline %></td>
+                        <td><%= localDateConverted( match.deadline) %></td>
                         <td><%= match.games %></td>
                         <td><% if (match.allow !== undefined && match.allow) { %>
                                 <i>Not Predicted</i>
