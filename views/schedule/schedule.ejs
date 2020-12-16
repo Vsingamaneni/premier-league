@@ -36,7 +36,8 @@
                         <tr>
                             <td><%= game.matchDay %></td>
                             <td><%= game.homeTeam %> vs <%= game.awayTeam %></td>
-                            <td><%= localDateConverted( game.matchTime) %></td>
+                            <!--<td><%= localDateConverted( game.matchTime) %></td>-->
+                            <td><%= new Date().toLocaleDateString() + " " + new Date().toLocaleTimeString() %></td>
                             <td><%= game.venue %></td>
                             <td> <% if (game.winner !== undefined) { %>
                                     <%=  game.winner %>
