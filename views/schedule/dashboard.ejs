@@ -17,10 +17,9 @@
         <p style="margin:0 auto; text-align: center; font-size: 60px; margin-top: 0px; width: 60%; border: 3px solid #315f00;color: #84e5d8; text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;" id="demo"></p>
         <script>
                 // Set the date we're counting down to
-               // var countDownDate = new Date("Dec 3, 2020 15:37:25").getTime();
-                //var countDownDate = new Date("<%= moment(new Date(dashboard.formatTimer.toISOString()), 'MMMM Do YYYY, h:mm:ss a').format('lll') %>").getTime();
-                var countDownDate = new Date("<%= moment(new Date(dashboard.formatTimer+' UTC'), 'MMMM Do YYYY, h:mm:ss a').format('lll') %>").getTime();
-
+                // var countDownDate = new Date("Dec 3, 2020 15:37:25").getTime();
+                //var countDownDate = new Date("<%= dashboard.formatTimer %>").getTime();
+                var countDownDate = new Date("Dec 16, 2020 15:37:25 UTC").getTime();
                 // Update the count down every 1 second
                 var x = setInterval(function () {
 

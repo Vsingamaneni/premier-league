@@ -37,7 +37,7 @@ exports.matchDetails = async function getMatchDetails(connection){
 
                         let timerInputInUtc = item.timer;
                         let timerDateInUtc = new Date(Date.parse(timerInputInUtc));
-                        // let timerDateInLocalTz = convertUtcToLocalTz(timerDateInUtc);
+                         let timerDateInLocalTz = convertUtcToLocalTz(timerDateInUtc);
 
                         /*item.formatTimer = moment(new Date(timerDateInLocalTz.toISOString()), 'MMMM Do YYYY, h:mm:ss a').format('lll');*/
                         item.formatTimer = timerDateInUtc;
