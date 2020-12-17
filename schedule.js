@@ -5,8 +5,6 @@ const bodyParser = require('body-parser');
 let utils = require('./util/ScheduleUtil');
 var predictionUtils = require('./util/PredictionUtil');
 var db = require('./db');
-var moment = require('moment');
-
 
 const urlencodedParser = bodyParser.urlencoded({extended: false})
 const {check, validationResult} = require('express-validator')
@@ -31,24 +29,14 @@ exports.dashboard = app.get('/dashboard', async (req, res) => {
     try {
         if (req.cookies.loginDetails) {
             let loginDetails = JSON.parse(req.cookies.loginDetails);
-
             let schedule = await utils.matchDetails(connection, req);
 
-            // var x = new Date();
-            // var offset= -x.getTimezoneOffset();
-            // console.log((offset>=0?"+":"-")+parseInt(offset/60)+":"+offset%60)
 
-            // console.log(moment().format('Z'));
-            //
-            // var dt = new Date(Date.parse('Dec 15, 2020 17:00:00'+" UTC"));
-            // dt.setMinutes(dt.getMinutes() - dt.getTimezoneOffset());
-            // console.log(dt);
             return res.render('schedule/dashboard', {
                 title: 'Dashboard',
                 team: loginDetails.team,
                 fname: loginDetails.fName,
-                dashboard: schedule[0],
-                moment: moment
+                dashboard: schedule[0]
             });
         } else {
             return res.render('login/login', {
@@ -66,13 +54,15 @@ exports.schedule = app.get('/schedule', async (req, res) => {
             let loginDetails = JSON.parse(req.cookies.loginDetails);
             let schedule = await utils.matchDetails(connection, req);
             let scheduleMap = predictionUtils.mapSchedule(schedule, true);
+            let timeZone = req.cookies.clientOffset;
 
             res.render('schedule/schedule', {
                 title: 'Schedule ',
                 team: loginDetails.team,
                 fname: loginDetails.fName,
                 schedule: schedule,
-                scheduleMap: scheduleMap
+                scheduleMap: scheduleMap,
+                timeZone: timeZone
             });
         } else {
             res.redirect('/login');

@@ -3,6 +3,9 @@ const express = require('express');
 const bodyParser = require('body-parser');
 var cookieParser = require('cookie-parser');
 var session = require("express-session");
+var jstz = require('jstz');
+
+
 
 // Routes for different api's
 var userSession = require('./user');
@@ -11,6 +14,8 @@ var predictions = require('./predictions');
 var db = require('./db');
 
 const app = express();
+
+app.locals.jstz = jstz;
 
 app.use(cookieParser());
 app.use(session({

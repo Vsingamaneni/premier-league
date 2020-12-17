@@ -3,11 +3,14 @@ const express = require('express');
 var cryptPass = require('./password');
 const bodyParser = require('body-parser');
 var db = require('./db');
+var jstz = require('jstz');
 
 const urlencodedParser = bodyParser.urlencoded({extended: false})
 const {check, validationResult} = require('express-validator')
 
 const app = express();
+
+app.locals.jstz = jstz;
 
 //set views file
 app.set('views', path.join(__dirname, 'views'));
@@ -27,7 +30,8 @@ exports.login = app.get('/login', function (req, res) {
         return res.redirect('/dashboard');
     } else {
         res.render('login/login', {
-            title: 'Scoreboard'
+            title: 'Scoreboard',
+            jstz:jstz
         });
     }
 });

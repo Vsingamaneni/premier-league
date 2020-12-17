@@ -88,13 +88,12 @@
 </div>
 
 </body>
-
+<script type="text/javascript" src="js/jstz.min.js"></script>
 <script>
     function localDateString() {
-        //return new Date().toLocaleDateString() + " " + new Date().toLocaleTimeString();
-        return new Date().getTimezoneOffset();
+        var timezone = jstz.determine();
+        return timezone.name();
     }
-
 
     window.onload = function () {
         document.getElementById("clientOffset").value = localDateString();
