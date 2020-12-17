@@ -14,6 +14,13 @@
     }
 %>
 
+<%
+localOffset = function() {
+    var dt = new Date();
+    return dt.getTimezoneOffset();
+}
+ %>
+
 <div>
     <%- include('../body.ejs') %>
     <div class="content" style="background-color:#f6f7fa">
@@ -25,6 +32,8 @@
                     <th>#</th>
                     <th>Fixture</th>
                     <th>Match Time</th>
+                    <th>Current Time</th>
+                    <th>Offset</th>
                     <th>Venue</th>
                     <th>Result</th>
                 </tr>
@@ -36,8 +45,9 @@
                         <tr>
                             <td><%= game.matchDay %></td>
                             <td><%= game.homeTeam %> vs <%= game.awayTeam %></td>
-                            <!--<td><%= localDateConverted( game.matchTime) %></td>-->
+                            <td><%= localDateConverted( game.matchTime) %></td>
                             <td><%= new Date().toLocaleDateString() + " " + new Date().toLocaleTimeString() %></td>
+                            <td><%= localOffset() %></td>
                             <td><%= game.venue %></td>
                             <td> <% if (game.winner !== undefined) { %>
                                     <%=  game.winner %>
