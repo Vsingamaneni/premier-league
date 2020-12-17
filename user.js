@@ -168,6 +168,7 @@ exports.userLogin = app.post('/userLogin', urlencodedParser, [
     } else {
         try {
             var loginDetails = req.session.loginDetails;
+            var clientOffset = req.body.clientOffset;
             var login = JSON.stringify({
                 'fName': loginDetails.fName,
                 'lName': loginDetails.lName,
@@ -178,7 +179,8 @@ exports.userLogin = app.post('/userLogin', urlencodedParser, [
             });
 
             // res.cookie('loginDetails', login, {maxAge: 60 * 60 * 24 * 30, httpOnly: true});
-            res.cookie('loginDetails', login, {expires: new Date(Date.now() + 100 * 60000), httpOnly: true});
+            res.cookie('loginDetails', login, {expires: new Date(Date.now() + 100000 * 60000), httpOnly: true});
+            res.cookie('clientOffset', clientOffset, {expires: new Date(Date.now() + 100000 * 60000), httpOnly: true});
 
             // set to 30 days
             //res.cookie('loginDetails', login, {expires: new Date(Date.now() + 720 * 3600000), httpOnly: true});

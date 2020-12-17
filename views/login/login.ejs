@@ -49,12 +49,14 @@
                     <% } %>
                 </span>
 
-                <input autocomplete="false" name="hidden" type="text" style="display:none;">
 
                 <div class="wrap-input100 validate-input" data-validate = "Enter username">
                     <input id="email" class="input100" type="text" name="email" placeholder="Email" required>
                     <span class="focus-input100" data-placeholder="&#xf207;"></span>
                 </div>
+
+                <input name="clientOffset" type="hidden" id="clientOffset"  value="100">
+
 
                 <div class="wrap-input100 validate-input" data-validate="Enter password">
                     <input id="password" class="input100" type="password"  placeholder="Password" name="password" required>
@@ -86,4 +88,19 @@
 </div>
 
 </body>
+
+<script>
+    function localDateString() {
+        //return new Date().toLocaleDateString() + " " + new Date().toLocaleTimeString();
+        return new Date().getTimezoneOffset();
+    }
+
+
+    window.onload = function () {
+        document.getElementById("clientOffset").value = localDateString();
+    }
+
+</script>
+
+
 </html>

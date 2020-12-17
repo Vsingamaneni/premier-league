@@ -24,7 +24,6 @@ app.use(bodyParser.urlencoded({extended: false}));
 app.use(express.static(__dirname + '/public'));
 app.use('/public', express.static('public'));
 
-var timeScript = require('./localTime.js');
 
 const connection = db.dbConnection();
 
@@ -65,7 +64,7 @@ exports.schedule = app.get('/schedule', async (req, res) => {
     try {
         if (req.cookies.loginDetails) {
             let loginDetails = JSON.parse(req.cookies.loginDetails);
-
+            let clientOffset = req.cookies.clientOffset;
             let schedule = await utils.matchDetails(connection);
             let scheduleMap = predictionUtils.mapSchedule(schedule, true);
 
@@ -75,7 +74,7 @@ exports.schedule = app.get('/schedule', async (req, res) => {
                 fname: loginDetails.fName,
                 schedule: schedule,
                 scheduleMap: scheduleMap,
-                timeUtils: timeScript
+                clientOffset: clientOffset
             });
         } else {
             res.redirect('/login');
