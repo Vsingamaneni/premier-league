@@ -55,10 +55,16 @@ function convertUtcToLocalTz(dateInUtc) {
 }
 
 function clientTimeZone(date, clientTimeZone){
-    var clientDate = new Date(date).toLocaleString('en-US', {
-        timeZone: clientTimeZone
-    });
-    return dateFormat(clientDate, "yyyy-mm-dd h:MM:ss TT Z")
+    console.log(clientTimeZone);
+    date = new Date(date);
+
+    let usaTime =
+        date.toLocaleString("en-US", {
+            timeZone: "America/New_York"
+        });
+
+    console.log(usaTime);
+    return usaTime;
 }
 
 function adjustZone(date, clientOffset){
