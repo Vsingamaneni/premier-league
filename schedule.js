@@ -62,7 +62,7 @@ exports.schedule = app.get('/schedule', async (req, res) => {
                 fname: loginDetails.fName,
                 schedule: schedule,
                 scheduleMap: scheduleMap,
-                timeZone: timeZone
+                clientTimeZone: timeZone
             });
         } else {
             res.redirect('/login');

@@ -29,7 +29,7 @@ exports.matchDetails = async function getMatchDetails(connection, req){
                 let schedule = [];
                 if (results.length > 0){
                     results.forEach(function(item) {
-                        let inputInUtc = item.matchTime;
+                        item.clientTime = clientTimeZone(item.timer, req.cookies.clientOffset);
 
                         item.formatTimer = item.timer;
 
@@ -54,7 +54,12 @@ function convertUtcToLocalTz(dateInUtc) {
     return new Date(dateInUtc.getTime() - dateInUtc.getTimezoneOffset()*60*1000);
 }
 
-
+function clientTimeZone(date, clientTimeZone){
+    var clientDate = new Date(date).toLocaleString('en-US', {
+        timeZone: clientTimeZone
+    });
+    return dateFormat(clientDate, "yyyy-mm-dd h:MM:ss TT Z")
+}
 
 function adjustZone(date, clientOffset){
     let utcDate = new Date(date.toLocaleString('en-US', { timeZone: clientOffset }));
