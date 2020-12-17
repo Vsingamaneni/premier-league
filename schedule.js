@@ -32,7 +32,7 @@ exports.dashboard = app.get('/dashboard', async (req, res) => {
         if (req.cookies.loginDetails) {
             let loginDetails = JSON.parse(req.cookies.loginDetails);
 
-            let schedule = await utils.matchDetails(connection);
+            let schedule = await utils.matchDetails(connection, req);
 
             // var x = new Date();
             // var offset= -x.getTimezoneOffset();
@@ -64,8 +64,7 @@ exports.schedule = app.get('/schedule', async (req, res) => {
     try {
         if (req.cookies.loginDetails) {
             let loginDetails = JSON.parse(req.cookies.loginDetails);
-            let clientOffset = req.cookies.clientOffset;
-            let schedule = await utils.matchDetails(connection);
+            let schedule = await utils.matchDetails(connection, req);
             let scheduleMap = predictionUtils.mapSchedule(schedule, true);
 
             res.render('schedule/schedule', {
@@ -73,8 +72,7 @@ exports.schedule = app.get('/schedule', async (req, res) => {
                 team: loginDetails.team,
                 fname: loginDetails.fName,
                 schedule: schedule,
-                scheduleMap: scheduleMap,
-                clientOffset: clientOffset
+                scheduleMap: scheduleMap
             });
         } else {
             res.redirect('/login');
@@ -113,6 +111,11 @@ exports.removeCookie = app.get('/logout', function (req, res) {
     let username = req.cookies['loginDetails'];
     if (username) {
         req.cookies['loginDetails'] = null;
+    }
+
+    let clientOffset = req.cookies['clientOffset'];
+    if(clientOffset) {
+        req.cookies['clientOffset'] = null;
     }
     res.redirect('/login');
 });

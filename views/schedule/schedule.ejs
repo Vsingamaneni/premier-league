@@ -25,7 +25,6 @@
                     <th>#</th>
                     <th>Fixture</th>
                     <th>Match Time</th>
-                    <th>Offset</th>
                     <th>Venue</th>
                     <th>Result</th>
                 </tr>
@@ -37,8 +36,7 @@
                         <tr>
                             <td><%= game.matchDay %></td>
                             <td><%= game.homeTeam %> vs <%= game.awayTeam %></td>
-                            <td><%= localDateConverted( game.matchTime) %></td>
-                            <td><%= clientOffset %></td>
+                            <td><%= game.localTime %></td>
                             <td><%= game.venue %></td>
                             <td> <% if (game.winner !== undefined) { %>
                                     <%=  game.winner %>

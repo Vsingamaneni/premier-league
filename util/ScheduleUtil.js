@@ -3,7 +3,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 let predictionUtils = require('./PredictionUtil');
 const moment = require('moment');
-
+var dateFormat = require('dateformat');
 
 const app = express();
 
@@ -19,7 +19,7 @@ app.use(express.static(__dirname + '/public'));
 app.use('/public', express.static('public'));
 
 
-exports.matchDetails = async function getMatchDetails(connection){
+exports.matchDetails = async function getMatchDetails(connection, req){
     let sql = `Select * from SCHEDULE order by matchNumber asc`;
     return await new Promise( (resolve,reject) => {
         let result = connection.query(sql, function(err, results) {
@@ -34,7 +34,13 @@ exports.matchDetails = async function getMatchDetails(connection){
                         let dateInUtc = new Date(Date.parse(inputInUtc));
                         let dateInLocalTz = convertUtcToLocalTz(dateInUtc);
 
-                        item.localTime = item.matchTime;
+                        var utcTime = new Date(item.matchTime);
+                        // var now_utc =  Date.UTC(utcTime.getUTCFullYear(), utcTime.getUTCMonth(), utcTime.getUTCDate(),
+                        //     utcTime.getUTCHours(), utcTime.getUTCMinutes(), utcTime.getUTCSeconds());
+                        //
+                        // var utcTime = new Date(now_utc);
+
+                        item.localTime = adjustForTimezone(utcTime, req.cookies.clientOffset);
 
                         item.formatTimer = item.timer;
 
@@ -71,4 +77,11 @@ exports.generateMatchDay = function generateMatchDay(schedule){
 function convertUtcToLocalTz(dateInUtc) {
     //Convert to local timezone
     return new Date(dateInUtc.getTime() - dateInUtc.getTimezoneOffset()*60*1000);
+}
+
+
+function adjustForTimezone(date, clientOffset){
+    var timeOffsetInMS = clientOffset * 60000;
+    date.setTime(date.getTime() + timeOffsetInMS);
+    return dateFormat(date, "yyyy-mm-dd h:MM:ss TT Z");
 }
