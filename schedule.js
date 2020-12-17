@@ -24,6 +24,8 @@ app.use(bodyParser.urlencoded({extended: false}));
 app.use(express.static(__dirname + '/public'));
 app.use('/public', express.static('public'));
 
+var timeScript = require('./localTime.js');
+
 const connection = db.dbConnection();
 
 exports.dashboard = app.get('/dashboard', async (req, res) => {
@@ -72,7 +74,8 @@ exports.schedule = app.get('/schedule', async (req, res) => {
                 team: loginDetails.team,
                 fname: loginDetails.fName,
                 schedule: schedule,
-                scheduleMap: scheduleMap
+                scheduleMap: scheduleMap,
+                timeUtils: timeScript
             });
         } else {
             res.redirect('/login');
