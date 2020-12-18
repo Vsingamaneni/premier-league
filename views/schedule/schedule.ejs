@@ -25,6 +25,7 @@
                     <th>#</th>
                     <th>Fixture</th>
                     <th>Match Time</th>
+                    <th>Moment Time</th>
                     <th>Time Zone</th>
                     <th>Venue</th>
                     <th>Result</th>
@@ -38,6 +39,7 @@
                             <td><%= game.matchDay %></td>
                             <td><%= game.homeTeam %> vs <%= game.awayTeam %></td>
                             <td><%= game.clientTime %></td>
+                            <td><%= game.momentClientTime %></td>
                             <td><%= clientTimeZone %></td>
                             <td><%= game.venue %></td>
                             <td> <% if (game.winner !== undefined) { %>

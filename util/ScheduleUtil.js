@@ -3,6 +3,8 @@ const express = require('express');
 const bodyParser = require('body-parser');
 let predictionUtils = require('./PredictionUtil');
 var dateFormat = require('dateformat');
+var moment = require('moment');
+var mom = require('moment-timezone');
 
 const app = express();
 
@@ -30,7 +32,7 @@ exports.matchDetails = async function getMatchDetails(connection, req){
                 if (results.length > 0){
                     results.forEach(function(item) {
                         item.clientTime = clientTimeZone(item.timer, req.cookies.clientOffset);
-
+                        item.momentClientTime = clientTimeZoneMoment(item.timer, req.cookies.clientOffset)
                         item.formatTimer = item.timer;
 
                         schedule.push(item);
@@ -55,16 +57,25 @@ function convertUtcToLocalTz(dateInUtc) {
 }
 
 function clientTimeZone(date, clientTimeZone){
-    console.log(clientTimeZone);
-    date = new Date(date);
+    console.log("Timezone : " + clientTimeZone);
+    console.log("date string : " + date);
+
+    let dateLocal = new Date(date);
+    console.log("date after conversion " + dateLocal);
 
     let usaTime =
-        date.toLocaleString("en-US", {
+        dateLocal.toLocaleString("en-US", {
             timeZone: "America/New_York"
         });
 
-    console.log(usaTime);
+    console.log("Time after timezone " + usaTime);
     return usaTime;
+}
+
+function clientTimeZoneMoment(date, clientTimeZone){
+    //var format = 'YYYY/MM/DD HH:mm:ss ZZ';
+    var format = 'lll';
+    return mom(date).tz(clientTimeZone).format(format);
 }
 
 function adjustZone(date, clientOffset){
